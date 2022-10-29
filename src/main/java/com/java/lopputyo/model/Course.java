@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Course implements Serializable{
-    int courseId;
+    long courseId;
     String courseName;
     String courseTeacher;
     List<Integer> CourseStudents = new ArrayList<>();

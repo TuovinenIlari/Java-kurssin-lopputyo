@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Student implements Serializable {
 
-     int studentId;
+     long studentId;
      String fname;
      String lname;
      String email;
