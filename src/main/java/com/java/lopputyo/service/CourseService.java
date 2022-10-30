@@ -8,7 +8,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.java.lopputyo.model.ClassRoomCourse;
 import com.java.lopputyo.model.Course;
+import com.java.lopputyo.model.OnlineCourse;
 
 @Service
 public class CourseService {
@@ -27,7 +29,11 @@ public class CourseService {
         }
     }
 
-    public void addCourse(Course course) {
+    public void addOnlineCourse(OnlineCourse course) {
+        courses.add(course);
+        savePersistentData();
+    }
+    public void addClassRoomCourse(ClassRoomCourse course) {
         courses.add(course);
         savePersistentData();
     }
@@ -52,7 +58,7 @@ public class CourseService {
         return false;
     }
 
-    public boolean updateCourse(Course course) {
+    public boolean updateOnlineCourse(OnlineCourse course) {
         for (int i = 0; i < courses.size(); i++) {
             if (courses.get(i).getCourseId() == course.getCourseId()) {
                 courses.set(i, course);
@@ -63,6 +69,18 @@ public class CourseService {
 
         return false;
     }
+    public boolean updateClassRoomCourse(ClassRoomCourse course) {
+        for (int i = 0; i < courses.size(); i++) {
+            if (courses.get(i).getCourseId() == course.getCourseId()) {
+                courses.set(i, course);
+                savePersistentData();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public List<Course> getCourses() {
 

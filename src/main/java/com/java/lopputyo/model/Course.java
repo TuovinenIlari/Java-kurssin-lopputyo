@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course implements Serializable{
+abstract public class Course implements Serializable{
     long courseId;
     String courseName;
     String courseTeacher;
@@ -38,7 +38,7 @@ public class Course implements Serializable{
         this.courseTeacher = courseTeacher;
     }
 
-    public int getCourseId() {
+    public long getCourseId() {
         return this.courseId;
     }
     public void setStudents(Integer StudentId){

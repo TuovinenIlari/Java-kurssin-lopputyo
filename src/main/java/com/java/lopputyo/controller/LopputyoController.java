@@ -1,6 +1,7 @@
 package com.java.lopputyo.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.java.lopputyo.model.ClassRoomCourse;
 import com.java.lopputyo.model.Course;
+import com.java.lopputyo.model.OnlineCourse;
 import com.java.lopputyo.model.Student;
 import com.java.lopputyo.service.CourseService;
 import com.java.lopputyo.service.StudentService;
@@ -71,10 +75,15 @@ public class LopputyoController {
         return myCourseService.getCourses();
     }
 
-    @PostMapping("/addcourse")
-    public Course addCourse(@RequestBody Course course) {
-        myCourseService.addCourse(course);
-        return course;
+    @PostMapping("/addonlinecourse")
+    public ResponseEntity<String> addOnlineCourse(@RequestBody OnlineCourse course) {
+        myCourseService.addOnlineCourse(course);
+        return new ResponseEntity<>("Course added.", HttpStatus.OK);
+    }
+    @PostMapping("/addclassroomcourse")
+    public ResponseEntity<String> addClassRoomCourse(@RequestBody ClassRoomCourse course) {
+        myCourseService.addClassRoomCourse(course);
+        return new ResponseEntity<>("Course added.", HttpStatus.OK);
     }
 
     @GetMapping("/savecourses")
@@ -97,9 +106,18 @@ public class LopputyoController {
         }
     }
 
-    @PostMapping("/updatecourse") // Uses courseId to update
-    public ResponseEntity<String> updateCourse(@RequestBody Course course) {
-        boolean response = myCourseService.updateCourse(course);
+    @PostMapping("/updateonlinecourse") // Uses courseId to update
+    public ResponseEntity<String> updateOnlineCourse(@RequestBody OnlineCourse course) {
+        boolean response = myCourseService.updateOnlineCourse(course);
+        if (response) {
+            return new ResponseEntity<>("Update Success", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Update failed", HttpStatus.NOT_MODIFIED);
+        }
+    }
+    @PostMapping("/updateclassroomcourse") // Uses courseId to update
+    public ResponseEntity<String> updateClassroomCourse(@RequestBody ClassRoomCourse course) {
+        boolean response = myCourseService.updateClassRoomCourse(course);
         if (response) {
             return new ResponseEntity<>("Update Success", HttpStatus.OK);
         } else {
@@ -107,24 +125,29 @@ public class LopputyoController {
         }
     }
 
-
-    //Add student to course
+    // Add student to course
     @GetMapping("/addstudenttocourse/{studentId}/{courseId}")
-    public ResponseEntity<String> addStudentToCourse(@PathVariable int studentId,@PathVariable int courseId){
-        
+    public ResponseEntity<String> addStudentToCourse(@PathVariable int studentId, @PathVariable int courseId) {
+
         boolean sresponse = myStudentService.addStudentToCourse(studentId, courseId);
         boolean cresponse = myCourseService.addStudentToCourse(studentId, courseId);
-        if(sresponse&&cresponse){return new ResponseEntity<>("Student added to course",HttpStatus.OK);}
-        else {return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);}
+        if (sresponse && cresponse) {
+            return new ResponseEntity<>("Student added to course", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
     }
 
-    //Remove student from course
+    // Remove student from course
     @GetMapping("/removestudentfromcourse/{studentId}/{courseId}")
-    public ResponseEntity<String> removeStudentFromCourse(@PathVariable int studentId,@PathVariable int courseId){
-        
+    public ResponseEntity<String> removeStudentFromCourse(@PathVariable int studentId, @PathVariable int courseId) {
+
         boolean sresponse = myStudentService.removeStudentFromCourse(studentId, courseId);
         boolean cresponse = myCourseService.removeStudentFromCourse(studentId, courseId);
-        if(sresponse&&cresponse){return new ResponseEntity<>("Student removed from course",HttpStatus.OK);}
-        else {return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);}
+        if (sresponse && cresponse) {
+            return new ResponseEntity<>("Student removed from course", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
     }
 }

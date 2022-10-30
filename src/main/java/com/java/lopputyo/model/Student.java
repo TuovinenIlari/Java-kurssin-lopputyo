@@ -50,7 +50,7 @@ public class Student implements Serializable {
     }
 
     
-    public int getStudentId() {
+    public long getStudentId() {
         return this.studentId;
     }
     public void setCourse(Integer courseId){
