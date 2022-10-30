@@ -28,7 +28,7 @@ public interface RestControllerInterface {
     @GetMapping("/students/delete/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable int id);
 
-    @PostMapping("/students/update") // Uses studentId to update
+    @PostMapping("/students/update") // Uses studentId to update... send full copy of student with modification or lose data
     public ResponseEntity<String> updateStudent(@RequestBody Student student);
 
     // Course CRUD operations
@@ -47,10 +47,10 @@ public interface RestControllerInterface {
     @GetMapping("/courses/delete/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable int id);
 
-    @PostMapping("/courses/update/online")
+    @PostMapping("/courses/update/online") //Uses courseId to update... send full copy of course with modification or lose data
     public ResponseEntity<String> updateOnlineCourse(@RequestBody OnlineCourse course);
 
-    @PostMapping("/courses/update/classroom")
+    @PostMapping("/courses/update/classroom") //Uses courseId to update... send full copy of course with modification or lose data
     public ResponseEntity<String> updateClassroomCourse(@RequestBody ClassRoomCourse course);
 
     // Add student to course

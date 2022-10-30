@@ -29,11 +29,10 @@ public class LopputyoController implements RestControllerInterface {
     // Student CRUD operations
 
     public ResponseEntity<List<Student>> getStudents() {
+        if (myStudentService.getStudents().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(myStudentService.getStudents(), HttpStatus.OK);
-    }
-
-    public void saveStudentsData() {
-        myStudentService.savePersistentData();
     }
 
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
@@ -42,6 +41,9 @@ public class LopputyoController implements RestControllerInterface {
     }
 
     public ResponseEntity<Student> getStudentByID(@PathVariable int id) {
+        if (myStudentService.getByID(id) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(myStudentService.getByID(id), HttpStatus.OK);
     }
 
@@ -65,6 +67,9 @@ public class LopputyoController implements RestControllerInterface {
     }
 
     public ResponseEntity<List<Course>> getCourses() {
+        if (myCourseService.getCourses().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(myCourseService.getCourses(), HttpStatus.OK);
     }
 
@@ -79,6 +84,10 @@ public class LopputyoController implements RestControllerInterface {
     }
 
     public ResponseEntity<Course> getCourseByID(@PathVariable int id) {
+        if (myCourseService.getByID(id) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(myCourseService.getByID(id), HttpStatus.OK);
     }
 
