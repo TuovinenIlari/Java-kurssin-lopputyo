@@ -67,7 +67,7 @@ public class StudentService {
         return false;
     }
 
-    public List<Student> getStudent() {
+    public List<Student> getStudents() {
         try {
             students = fileService.readStudentsFromFile();
         } catch (FileNotFoundException e) {
